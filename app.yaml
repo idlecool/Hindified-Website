@@ -1,0 +1,32 @@
+application: hindified-1
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /images
+  static_dir: images
+
+- url: /lib
+  static_dir: lib
+
+- url: /exim
+  script: image.py
+
+- url: /contactsubmit
+  script: contactsubmit.py
+
+- url: /support
+  script: support.py
+
+- url: /services
+  script: services.py
+
+- url: /
+  script: hindified.py
+
+- url: /root
+  static_dir: root
+
+- url: /contact
+  script: contact.py

@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div id="contact"> 
+		<div id="contentbox">  
+			<img src="/images/contact_head.png" style="padding: 20px 0px 0px 0px;"/> 
+			<div id="formbox"> 
+			<form name="contactform" action="contactsubmit" method="post" autocomplete="off"> 
+			<table style="text-align: left;"> 
+				<tr> 
+					<td> 
+						<span class="form_item">Name</span>
+					</td> 
+					<td> 
+						<div class="field_column">
+							<div class="field_inputbox">
+								<input class="fields" type="text" name="name" size="30" maxlength="60" />
+							</div>
+							<div id="name_val" class="field_verifyicon">
+							</div>
+						</div>
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<span class="form_item">Email</span> 
+					</td>
+					<td> 
+						<div class="field_column">
+							<div class="field_inputbox">
+								<input class="fields" name="email" type="text" size="30" maxlength="60" />
+							</div>
+							<div id="email_val" class="field_verifyicon">
+							</div>
+						</div>
+					</td> 
+				</tr>	
+				<tr> 
+					<td> 
+						<span class="form_item">Organisation</span> 
+					</td>
+					<td> 
+						<div class="field_column">
+							<div class="field_inputbox">
+								<input class="fields" name="organisation" type="text" size="30" maxlength="60" />
+							</div>
+							<div id="org_val" class="field_verifyicon">
+							</div>
+						</div>
+					</td> 
+				</tr> 
+				<tr> 
+					<td> 
+						<span class="form_item">Description</span>
+					</td> 
+					<td> 
+						<div class="field_column">
+							<div class="field_inputbox">
+								<textarea name="description"></textarea>
+							</div>
+							<div id="desc_val" class="field_verifyicon">
+							</div>
+						</div>
+					</td> 
+				</tr> 
+				<tr> 
+					<td colspan="2">
+						<div id="captcha_arrow">
+						</div>
+						<div id="captcha_div">
+							<div id="captcha_image_div">
+								
+							</div>
+							<div class="field_column" style="width:219px;">
+								<div class="field_inputbox" style="width:190px;">
+									<input id="captcha_input" name="captcha_input" type="text" size="30" maxlength="4"/>
+								</div>
+									<div id="capt_val" class="field_verifyicon" style="margin: 9px 0px 0px 3px;">
+								</div>
+							</div>
+						</div> 
+						<div id="sub_div">
+							<div id="captcha_status">
+								{% if invalidcaptcha %}
+									<span id="captcha_invalid"> &lt;-- the captcha you entered was invalid. try again!!<span>
+								{% endif %}
+							</div>
+							<div id="submit_button_div">
+								<input id="submit" type="submit" value onclick="return validateinput()"/>
+							</div>
+						</div> 
+					</td> 
+				</tr> 
+			</table> 
+			</form> 
+			</div>	
+		</div> 
+	</div>
+	<script type="text/javascript">
+		function validateinput()
+		{
+			var result = true
+			//captcha input
+			if(trim(document.contactform.captcha_input.value) == "" || trim(document.contactform.captcha_input.value).length < 4)
+			{
+				document.getElementById('capt_val').style.backgroundImage="url(images/cross.png)";
+				document.contactform.captcha_input.focus();
+				result = false;
+			}
+			else
+			{
+				document.getElementById('capt_val').style.backgroundImage="url(images/tic.png)";
+			}
+			//description
+			if(trim(document.contactform.description.value) == "")
+			{
+				document.getElementById('desc_val').style.backgroundImage="url(images/cross.png)";
+				document.contactform.description.focus();
+				result = false;
+			}
+			else
+			{
+				document.getElementById('desc_val').style.backgroundImage="url(images/tic.png)";
+			}
+			//organisation
+			if(trim(document.contactform.organisation.value) == "")
+			{
+				document.getElementById('org_val').style.backgroundImage="url(images/cross.png)";
+				document.contactform.organisation.focus();
+				result = false;
+			}
+			else
+			{
+				document.getElementById('org_val').style.backgroundImage="url(images/tic.png)";
+			}
+			//email
+			var RE_EMAIL = /^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/;
+			if(trim(document.contactform.email.value) == "" || !RE_EMAIL.test(document.contactform.email.value))
+			{
+				document.getElementById('email_val').style.backgroundImage="url(images/cross.png)";
+				document.contactform.email.focus();
+				result = false;
+			}
+			else
+			{
+				document.getElementById('email_val').style.backgroundImage="url(images/tic.png)";
+			}
+			//name validate
+			if(trim(document.contactform.name.value) == "")
+			{
+				document.getElementById('name_val').style.backgroundImage="url(images/cross.png)";
+				document.contactform.name.focus();
+				result = false;
+			}
+			else
+			{
+				document.getElementById('name_val').style.backgroundImage="url(images/tic.png)";
+			}
+			return result;
+		}
+		function trim(str)
+		{
+		    return str.replace(/^\s+|\s+$/g, '');
+		}
+	</script>{% endblock %}
+	{% block pagebottom %}
+	<script type="text/javascript">
+		function captchaload()
+			{
+			document.getElementById('captcha_image_div').innerHTML = '<img id="captcha_img" src="/exim"/>';
+			}
+		captchaload();
+	</script>{% endblock %}
