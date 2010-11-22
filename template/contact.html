@@ -69,7 +69,7 @@
 						</div>
 						<div id="captcha_div">
 							<div id="captcha_image_div">
-								
+								<img id="captcha_img" src="/exim"/>
 							</div>
 							<div class="field_column" style="width:219px;">
 								<div class="field_inputbox" style="width:190px;">
@@ -162,12 +162,4 @@
 		{
 		    return str.replace(/^\s+|\s+$/g, '');
 		}
-	</script>{% endblock %}
-	{% block pagebottom %}
-	<script type="text/javascript">
-		function captchaload()
-			{
-			document.getElementById('captcha_image_div').innerHTML = '<img id="captcha_img" src="/exim"/>';
-			}
-		captchaload();
 	</script>{% endblock %}
